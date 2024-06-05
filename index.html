@@ -69,23 +69,30 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button onclick="consoleLog()">Console Log</button>
+      <button onclick="consoleError()">Console Error</button>
+      <button onclick="consoleCount()">Console Count</button>
+      <button onclick="consoleWarn()">Console Warn</button>
+      <button onclick="consoleAssert()">Console Assert</button>
+      <button onclick="consoleClear()">Console Clear</button>
+      <button onclick="consoleDir()">Console Dir</button>
+      <button onclick="consoleDirxml()">Console dirxml</button>
+      <button onclick="consoleGroupStart()">Console Group Start</button>
+      <button onclick="consoleGroupEnd()">Console Group End</button>
+      <button onclick="consoleTable()">Console Table</button>
+      <button onclick="startTimer()">Start Timer</button>
+      <button onclick="endTimer()">End Timer</button>
+      <button onclick="consoleTrace()">Console Trace</button>
+      <button onclick="triggerAGlobalError()">Trigger a Global Error</button>
     </section>
   </main>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "aff352a446ca4adba8c606776eb68731"
+    });
+  </script>
 
   <script>
     let form = document.querySelector('form');
@@ -102,6 +109,102 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    function consoleLog(){
+      console.log("Console Log Demo");
+    }
+
+    function consoleError(){
+      console.error("Console Error Demo");
+    }
+
+    function consoleCount(){
+      console.count();
+    }
+
+    function consoleWarn(){
+      console.warn("Console Warn Button");
+    }
+
+    function consoleAssert(){
+      const number = 2;
+      const errorMsg = "The number does not equal 3";
+      console.assert(number == 3, { number, errorMsg });
+    }
+
+    function consoleClear(){
+      console.clear();
+    }
+
+    function consoleDir(){
+      console.dir(event.target.cloneNode(true));    
+    }
+
+    function consoleDirxml(){
+      console.dirxml(event.target);
+    }
+
+    function consoleGroupStart(){
+      console.group();
+    }
+
+    function consoleGroupEnd(){
+      console.groupEnd();
+    }
+
+    function consoleTable(){
+      var people = [
+        {
+          name: 'Sofware',
+          num: 110,
+        },
+        {
+          name: 'Programming',
+          num: 130,
+        },
+        {
+          name: 'Advanced',
+          num: 112,
+        }
+      ];
+      console.table(people);
+    }
+
+    function startTimer(){
+      console.time();
+    }
+
+    function endTimer(){
+      console.timeEnd();
+    }
+
+    function consoleTrace(){
+      function deepest() { deeper(); };
+      function deeper() { deep(); };
+      function deep() { console.trace(); };
+      deepest();
+    }
+
+    class customError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "CustomError";
+      }
+    }
+
+    function hasError() {
+      throw new customError("Custom error");
+    }
+
+    function triggerAGlobalError() {
+      boom();
+      try {
+        hasError();
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
   </script>
 </body>
 
